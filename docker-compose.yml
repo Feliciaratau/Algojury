@@ -1,0 +1,10 @@
+services:
+  algojury:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ALGOJURY_LLM_URL: ${ALGOJURY_LLM_URL:-}
+      ALGOJURY_LLM_MODEL: ${ALGOJURY_LLM_MODEL:-local-model}
+    volumes:
+      - ./data:/app/data

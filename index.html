@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AlgoJury — Digital Harm Assessment</title>
+<style>
+body{font-family:Inter,system-ui,sans-serif;margin:0;background:#f7f5f1;color:#171717}.wrap{max-width:900px;margin:auto;padding:32px 20px}.brand{font-size:28px;font-weight:800}.tag{color:#666;margin-bottom:28px}.card{background:white;border:1px solid #ddd6ce;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 8px 30px #00000008}label{display:block;font-weight:700;margin:14px 0 7px}textarea,select{width:100%;box-sizing:border-box;border:1px solid #cfc7bf;border-radius:10px;padding:12px;font:inherit}textarea{min-height:180px}.row{display:flex;gap:14px;align-items:center}.row>*{flex:1}button{border:0;border-radius:12px;padding:13px 18px;background:#171717;color:white;font-weight:750;cursor:pointer}.danger{accent-color:#171717}.notice{background:#fff6e5;border:1px solid #e6c98b;padding:14px;border-radius:12px}.pill{display:inline-block;background:#eee8e2;border-radius:999px;padding:6px 10px;margin:3px;font-size:13px}.result h2{margin-top:0}.muted{color:#666}.small{font-size:13px}.source{border-top:1px solid #eee;padding:12px 0}.source a{color:#171717}.loading{opacity:.6;pointer-events:none}
+</style></head>
+<body><main class="wrap">
+<div class="brand">AlgoJury</div><div class="tag">From digital harm to actionable redress.</div>
+<div class="card notice"><strong>Privacy-first beta.</strong> Your incident is sent only to this local AlgoJury server. No cloud AI is used unless you explicitly configure a local LLM endpoint. This tool is not a lawyer, court or law-enforcement service.</div>
+<div class="card"><h1>Document an incident</h1>
+<label>What happened?</label><textarea id="description" placeholder="Describe what happened, what was shared, who was involved, and what you have already done."></textarea>
+<div class="row"><div><label>Relationship to person involved</label><select id="relationship"><option value="unknown">Unknown / not sure</option><option>partner</option><option>ex-partner</option><option>family</option><option>friend</option><option>stranger</option><option>colleague</option></select></div><div><label><input id="danger" type="checkbox" class="danger"> I believe there is immediate danger</label></div></div>
+<label><input id="consent" type="checkbox" checked> I consent to this incident being processed locally for an assessment.</label>
+<button id="assess">Assess incident</button></div>
+<div id="output"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('assess').onclick=async()=>{const b=$('assess');b.classList.add('loading');b.textContent='Assessing locally…';$('output').innerHTML='';try{const r=await fetch('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({description:$('description').value,relationship:$('relationship').value,immediate_danger:$('danger').checked,consent_to_processing:$('consent').checked})});const d=await r.json();if(d.error)throw Error(d.error);$('output').innerHTML=`<div class="card result"><h2>Assessment</h2><p><strong>Urgency:</strong> ${esc(d.urgency)} &nbsp; <strong>Confidence:</strong> ${esc(d.confidence)}</p><p>${(d.incident_categories||[]).map(x=>`<span class="pill">${esc(x.replaceAll('_',' '))}</span>`).join('')||'<span class="muted">No specific pattern confidently detected.</span>'}</p><h3>Potential frameworks</h3><p>${(d.potential_frameworks||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</p><h3>Immediate actions</h3><ul>${(d.recommended_actions||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="notice"><strong>Legal boundary:</strong> ${esc(d.legal_position)}</p>${d.llm?.used?`<h3>Local LLM synthesis</h3><pre style="white-space:pre-wrap">${esc(d.llm.raw)}</pre>`:''}<h3>Source register</h3><div id="sources"></div></div>`;const s=await fetch('/api/sources').then(x=>x.json());$('sources').innerHTML=s.filter(x=>(d.potential_frameworks||[]).includes(x.id)).map(x=>`<div class="source"><strong>${esc(x.title)}</strong><div class="small muted">${esc(x.authority)} · ${esc(x.status)}</div><a href="${esc(x.official_url)}" target="_blank" rel="noreferrer">Official source</a></div>`).join('')}catch(e){$('output').innerHTML=`<div class="card notice">${esc(e.message)}</div>`}finally{b.classList.remove('loading');b.textContent='Assess incident'}};
+</script></body></html>
