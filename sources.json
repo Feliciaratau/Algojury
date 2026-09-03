@@ -1,65 +1,58 @@
 [
   {
-    "id": "UNESCO-AI-2021",
-    "title": "Recommendation on the Ethics of Artificial Intelligence",
-    "authority": "UNESCO",
-    "year": 2021,
-    "status": "international normative instrument",
-    "official_url": "https://www.unesco.org/en/articles/recommendation-ethics-artificial-intelligence",
-    "use_for": ["human rights", "dignity", "transparency", "fairness", "human oversight", "gender", "data governance"]
-  },
-  {
-    "id": "UNESCO-DP-2023",
-    "title": "Guidelines for the Governance of Digital Platforms",
-    "authority": "UNESCO",
-    "year": 2023,
-    "status": "guidelines",
-    "official_url": "https://www.unesco.org/en/internet-governance",
-    "use_for": ["platform governance", "freedom of expression", "human rights", "evidence-based governance", "online harms"]
-  },
-  {
     "id": "ZA-CYBERCRIMES-2020",
     "title": "Cybercrimes Act 19 of 2020",
+    "jurisdiction": "South Africa",
+    "version": "2020",
     "authority": "Republic of South Africa",
-    "year": 2020,
-    "status": "act; promulgated 2021",
-    "official_url": "https://www.gov.za/documents/acts/cybercrimes-act-19-2020-english-afrikaans-01-jun-2021",
-    "use_for": ["cybercrime", "harmful data messages", "interim protection orders", "reporting obligations"]
+    "official_url": "https://www.gov.za/documents/cybercrimes-act-19-2020-english-28-may-2021-1237"
   },
   {
     "id": "ZA-POPIA-2013",
     "title": "Protection of Personal Information Act 4 of 2013",
+    "jurisdiction": "South Africa",
+    "version": "2013",
     "authority": "Republic of South Africa",
-    "year": 2013,
-    "status": "act",
-    "official_url": "https://www.gov.za/documents/protection-personal-information-act",
-    "use_for": ["personal information", "privacy", "processing", "automated decision-making"]
+    "official_url": "https://www.gov.za/documents/protection-personal-information-act"
   },
   {
     "id": "ZA-PHA-2011",
     "title": "Protection from Harassment Act 17 of 2011",
+    "jurisdiction": "South Africa",
+    "version": "2011",
     "authority": "Republic of South Africa",
-    "year": 2011,
-    "status": "act; amended 2023",
-    "official_url": "https://www.justice.gov.za/legislation/acts/2011-017.pdf",
-    "use_for": ["harassment", "electronic communications", "protection orders", "stalking"]
+    "official_url": "https://www.gov.za/documents/protection-harassment-act"
   },
   {
     "id": "ZA-DVA-1998",
     "title": "Domestic Violence Act 116 of 1998",
+    "jurisdiction": "South Africa",
+    "version": "1998 as amended",
     "authority": "Republic of South Africa",
-    "year": 1998,
-    "status": "act; amended",
-    "official_url": "https://www.gov.za/documents/domestic-violence-act",
-    "use_for": ["domestic violence", "protection orders", "coercive behaviour", "controlling behaviour"]
+    "official_url": "https://www.gov.za/documents/domestic-violence-act"
   },
   {
-    "id": "ZA-DVA-2021",
-    "title": "Domestic Violence Amendment Act 14 of 2021",
+    "id": "ZA-ECTA-2002",
+    "title": "Electronic Communications and Transactions Act 25 of 2002",
+    "jurisdiction": "South Africa",
+    "version": "2002",
     "authority": "Republic of South Africa",
-    "year": 2021,
-    "status": "amending act; key provisions commenced 2023",
-    "official_url": "https://www.gov.za/documents/acts/domestic-violence-amendment-act-14-2021-english-afrikaans-28-jan-2022",
-    "use_for": ["updated domestic violence definitions", "protection orders", "coercive behaviour", "controlling behaviour"]
+    "official_url": "https://www.gov.za/documents/electronic-communications-and-transactions-act"
+  },
+  {
+    "id": "UNESCO-AI-2021",
+    "title": "UNESCO Recommendation on the Ethics of Artificial Intelligence",
+    "jurisdiction": "International",
+    "version": "2021",
+    "authority": "UNESCO",
+    "official_url": "https://www.unesco.org/en/artificial-intelligence/recommendation-ethics"
+  },
+  {
+    "id": "UNESCO-DP-2023",
+    "title": "UNESCO Guidelines for the Governance of Digital Platforms",
+    "jurisdiction": "International",
+    "version": "2023",
+    "authority": "UNESCO",
+    "official_url": "https://www.unesco.org/en/internet-trust/guidelines"
   }
 ]

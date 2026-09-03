@@ -1,0 +1,93 @@
+[
+  {
+    "id": "ZA-CYBERCRIMES-2020-S16",
+    "source_id": "ZA-CYBERCRIMES-2020",
+    "locator": "section 16",
+    "text": "The Cybercrimes Act creates an offence concerning the disclosure of an intimate image without the consent of the person depicted, subject to the statutory elements and exceptions.",
+    "tags": ["intimate_image", "non_consensual", "sexual_content", "privacy"]
+  },
+  {
+    "id": "ZA-CYBERCRIMES-2020-S15",
+    "source_id": "ZA-CYBERCRIMES-2020",
+    "locator": "section 15",
+    "text": "The Cybercrimes Act addresses a data message that threatens a person with damage to property or violence against a person, subject to the statutory elements.",
+    "tags": ["threat", "violence", "data_message", "urgency"]
+  },
+  {
+    "id": "ZA-CYBERCRIMES-2020-S10",
+    "source_id": "ZA-CYBERCRIMES-2020",
+    "locator": "section 10",
+    "text": "The Cybercrimes Act addresses cyber extortion, subject to the statutory elements and circumstances specified by the Act.",
+    "tags": ["extortion", "sextortion", "threat", "money"]
+  },
+  {
+    "id": "ZA-CYBERCRIMES-2020-S20",
+    "source_id": "ZA-CYBERCRIMES-2020",
+    "locator": "section 20",
+    "text": "The Cybercrimes Act provides for a protection order in circumstances connected to certain offences, including orders that may prohibit disclosure or direct a service provider to remove or disable access to material, subject to the Act.",
+    "tags": ["removal", "protection_order", "provider", "intimate_image"]
+  },
+  {
+    "id": "ZA-PHA-2011-S1",
+    "source_id": "ZA-PHA-2011",
+    "locator": "section 1",
+    "text": "The Protection from Harassment Act defines harassment to include conduct such as following, watching, pursuing, or communicating with a person, including electronic communications, in circumstances covered by the Act.",
+    "tags": ["harassment", "stalking", "electronic", "communications"]
+  },
+  {
+    "id": "ZA-PHA-2011-S2",
+    "source_id": "ZA-PHA-2011",
+    "locator": "section 2",
+    "text": "The Protection from Harassment Act provides for a protection order against harassment where the statutory requirements are met.",
+    "tags": ["harassment", "protection_order", "safety"]
+  },
+  {
+    "id": "ZA-PHA-2011-S4",
+    "source_id": "ZA-PHA-2011",
+    "locator": "section 4",
+    "text": "The Protection from Harassment Act contains a mechanism concerning certain electronic communications and the identification of persons responsible for harassment, subject to statutory requirements.",
+    "tags": ["harassment", "electronic", "provider", "identity"]
+  },
+  {
+    "id": "ZA-DVA-1998-S1",
+    "source_id": "ZA-DVA-1998",
+    "locator": "section 1 and amendments",
+    "text": "The Domestic Violence Act framework includes forms of domestic violence such as physical, sexual, emotional, verbal, psychological or economic abuse, as well as harassment, coercive behaviour and controlling behaviour, where the statutory relationship requirements apply.",
+    "tags": ["gbv", "domestic", "coercive", "controlling", "harassment"]
+  },
+  {
+    "id": "ZA-POPIA-2013-S26",
+    "source_id": "ZA-POPIA-2013",
+    "locator": "section 26",
+    "text": "POPIA identifies special personal information, including categories such as information concerning a person's sex life, subject to the Act's definitions and exceptions.",
+    "tags": ["privacy", "special_personal_information", "sexual_content"]
+  },
+  {
+    "id": "ZA-ECTA-2002-S14",
+    "source_id": "ZA-ECTA-2002",
+    "locator": "section 14",
+    "text": "ECTA recognises that a data message can satisfy requirements for an original document where specified integrity and accessibility conditions are met.",
+    "tags": ["evidence", "data_message", "integrity", "document"]
+  },
+  {
+    "id": "UNESCO-AI-2021-HUMAN-RIGHTS",
+    "source_id": "UNESCO-AI-2021",
+    "locator": "human rights and dignity",
+    "text": "UNESCO's AI ethics recommendation places human rights and dignity at the centre of AI governance and emphasises principles including transparency, fairness and human oversight.",
+    "tags": ["ai", "human_rights", "transparency", "human_oversight"]
+  },
+  {
+    "id": "UNESCO-DP-2023-PRINCIPLES",
+    "source_id": "UNESCO-DP-2023",
+    "locator": "five principles",
+    "text": "UNESCO's digital platform governance guidelines emphasise human-rights due diligence, adherence to international human-rights standards, transparency, accessible information and user tools, and accountability.",
+    "tags": ["platform", "governance", "human_rights", "accountability", "transparency"]
+  },
+  {
+    "id": "UNESCO-DP-2023-RISK",
+    "source_id": "UNESCO-DP-2023",
+    "locator": "risk evaluation and vulnerable groups",
+    "text": "UNESCO's platform governance guidance calls for evidence-based risk assessment and attention to impacts on women, girls and other vulnerable groups.",
+    "tags": ["platform", "risk", "women", "girls", "vulnerable_groups", "gbv"]
+  }
+]

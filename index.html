@@ -1,22 +1,89 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AlgoJury — Digital Harm Assessment</title>
 <style>
-body{font-family:Inter,system-ui,sans-serif;margin:0;background:#f7f5f1;color:#171717}.wrap{max-width:900px;margin:auto;padding:32px 20px}.brand{font-size:28px;font-weight:800}.tag{color:#666;margin-bottom:28px}.card{background:white;border:1px solid #ddd6ce;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 8px 30px #00000008}label{display:block;font-weight:700;margin:14px 0 7px}textarea,select{width:100%;box-sizing:border-box;border:1px solid #cfc7bf;border-radius:10px;padding:12px;font:inherit}textarea{min-height:180px}.row{display:flex;gap:14px;align-items:center}.row>*{flex:1}button{border:0;border-radius:12px;padding:13px 18px;background:#171717;color:white;font-weight:750;cursor:pointer}.danger{accent-color:#171717}.notice{background:#fff6e5;border:1px solid #e6c98b;padding:14px;border-radius:12px}.pill{display:inline-block;background:#eee8e2;border-radius:999px;padding:6px 10px;margin:3px;font-size:13px}.result h2{margin-top:0}.muted{color:#666}.small{font-size:13px}.source{border-top:1px solid #eee;padding:12px 0}.source a{color:#171717}.loading{opacity:.6;pointer-events:none}
-</style></head>
-<body><main class="wrap">
-<div class="brand">AlgoJury</div><div class="tag">From digital harm to actionable redress.</div>
-<div class="card notice"><strong>Privacy-first beta.</strong> Your incident is sent only to this local AlgoJury server. No cloud AI is used unless you explicitly configure a local LLM endpoint. This tool is not a lawyer, court or law-enforcement service.</div>
-<div class="card"><h1>Document an incident</h1>
-<label>What happened?</label><textarea id="description" placeholder="Describe what happened, what was shared, who was involved, and what you have already done."></textarea>
-<div class="row"><div><label>Relationship to person involved</label><select id="relationship"><option value="unknown">Unknown / not sure</option><option>partner</option><option>ex-partner</option><option>family</option><option>friend</option><option>stranger</option><option>colleague</option></select></div><div><label><input id="danger" type="checkbox" class="danger"> I believe there is immediate danger</label></div></div>
-<label><input id="consent" type="checkbox" checked> I consent to this incident being processed locally for an assessment.</label>
-<button id="assess">Assess incident</button></div>
-<div id="output"></div>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f5f5f3;color:#171717}
+main{max-width:900px;margin:auto;padding:32px 20px}
+.hero{padding:30px 0}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+h1{font-size:44px;line-height:1.05;margin:10px 0} h2{margin-top:0}
+.card{background:white;border:1px solid #ddd;border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 4px 18px #00000008}
+label{display:block;font-weight:650;margin:14px 0 7px}
+textarea,input,select{width:100%;box-sizing:border-box;padding:12px;border:1px solid #bbb;border-radius:10px;font:inherit}
+textarea{min-height:150px}
+button{border:0;border-radius:10px;padding:13px 18px;font-weight:700;cursor:pointer}
+.primary{background:#171717;color:#fff}.pill{display:inline-block;border:1px solid #ccc;border-radius:999px;padding:6px 10px;margin:4px;font-size:13px}
+.hidden{display:none}.danger{border-left:5px solid #171717}
+small{color:#666}.source{border-top:1px solid #eee;padding-top:12px;margin-top:12px}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<div class="eyebrow">AlgoJury</div>
+<h1>From digital harm to actionable redress.</h1>
+<p>A privacy-first assessment tool that helps structure what happened, surface relevant South African and UNESCO guidance, and identify safer next steps.</p>
+</section>
+
+<section class="card">
+<h2>1. Tell us what happened</h2>
+<label for="description">Describe the incident</label>
+<textarea id="description" placeholder="Example: Someone created an AI-generated voice note pretending to be me and shared it in a student WhatsApp group."></textarea>
+
+<label for="platform">Where did it happen?</label>
+<input id="platform" placeholder="WhatsApp, Instagram, TikTok, website...">
+
+<label for="relationship">Relationship to the person involved</label>
+<select id="relationship">
+<option value="">Not sure / other</option>
+<option value="partner">Current partner</option>
+<option value="ex-partner">Ex-partner</option>
+<option value="family">Family member</option>
+<option value="friend">Friend / acquaintance</option>
+<option value="stranger">Stranger / unknown person</option>
+</select>
+
+<label>Is anyone in immediate danger?</label>
+<select id="danger"><option value="false">No</option><option value="true">Yes</option></select>
+
+<label>Was the material shared with your consent?</label>
+<select id="consent"><option value="unknown">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select>
+
+<br><br><button class="primary" onclick="assessIncident()">Assess incident</button>
+</section>
+
+<section id="result" class="card hidden"></section>
+
+<section class="card">
+<strong>Safety note</strong>
+<p>If there is immediate danger in South Africa, contact SAPS on <strong>10111</strong>. The GBV Command Centre is available 24/7 on <strong>0800 428 428</strong> or <strong>*120*7867#</strong>.</p>
+<small>AlgoJury is not a lawyer, police service or adjudicator. It does not decide whether an offence occurred.</small>
+</section>
 </main>
 <script>
-const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-$('assess').onclick=async()=>{const b=$('assess');b.classList.add('loading');b.textContent='Assessing locally…';$('output').innerHTML='';try{const r=await fetch('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({description:$('description').value,relationship:$('relationship').value,immediate_danger:$('danger').checked,consent_to_processing:$('consent').checked})});const d=await r.json();if(d.error)throw Error(d.error);$('output').innerHTML=`<div class="card result"><h2>Assessment</h2><p><strong>Urgency:</strong> ${esc(d.urgency)} &nbsp; <strong>Confidence:</strong> ${esc(d.confidence)}</p><p>${(d.incident_categories||[]).map(x=>`<span class="pill">${esc(x.replaceAll('_',' '))}</span>`).join('')||'<span class="muted">No specific pattern confidently detected.</span>'}</p><h3>Potential frameworks</h3><p>${(d.potential_frameworks||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('')}</p><h3>Immediate actions</h3><ul>${(d.recommended_actions||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="notice"><strong>Legal boundary:</strong> ${esc(d.legal_position)}</p>${d.llm?.used?`<h3>Local LLM synthesis</h3><pre style="white-space:pre-wrap">${esc(d.llm.raw)}</pre>`:''}<h3>Source register</h3><div id="sources"></div></div>`;const s=await fetch('/api/sources').then(x=>x.json());$('sources').innerHTML=s.filter(x=>(d.potential_frameworks||[]).includes(x.id)).map(x=>`<div class="source"><strong>${esc(x.title)}</strong><div class="small muted">${esc(x.authority)} · ${esc(x.status)}</div><a href="${esc(x.official_url)}" target="_blank" rel="noreferrer">Official source</a></div>`).join('')}catch(e){$('output').innerHTML=`<div class="card notice">${esc(e.message)}</div>`}finally{b.classList.remove('loading');b.textContent='Assess incident'}};
-</script></body></html>
+async function assessIncident(){
+ const payload={
+  description:document.getElementById('description').value,
+  platform:document.getElementById('platform').value,
+  relationship:document.getElementById('relationship').value,
+  immediate_danger:document.getElementById('danger').value==='true',
+  consent_status:document.getElementById('consent').value
+ };
+ if(payload.description.trim().length<3){alert('Please describe what happened.');return}
+ const r=await fetch('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+ const d=await r.json();
+ let html=`<h2>Assessment</h2><p><strong>Urgency:</strong> ${d.urgency}</p>`;
+ html+=`<p><strong>Possible issue areas:</strong> ${d.categories.length?d.categories.map(x=>`<span class="pill">${x.replaceAll('_',' ')}</span>`).join(''):'No specific pattern identified'}</p>`;
+ html+=`<p><strong>GBV relevance:</strong> ${d.gbv_relevant?'Potentially relevant based on the information provided.':'Not flagged from the information provided.'}</p>`;
+ html+=`<h3>Suggested next steps</h3><ul>${d.actions.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+ html+=`<h3>Retrieved guidance</h3>`;
+ html+=d.retrieved_sources.map(s=>`<div class="source"><strong>${s.source.title||s.source_id}</strong> — ${s.locator}<br>${s.text}<br><small>Source ID: ${s.source_id}</small></div>`).join('');
+ if(d.llm_assistance){html+=`<h3>Local AI assistance</h3><p>${d.llm_assistance.summary||''}</p>`}
+ html+=`<p><small>${d.legal_boundary}</small></p>`;
+ const el=document.getElementById('result');el.innerHTML=html;el.classList.remove('hidden');el.scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
